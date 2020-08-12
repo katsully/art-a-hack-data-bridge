@@ -8,6 +8,7 @@ with open("bio_data.json", "r") as json_file:
 	json_object = json.load(json_file)
 json_file.close()
 
+
 # clear out any pre-exisiting data
 json_object = {}
 
