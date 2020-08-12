@@ -4,9 +4,9 @@ import json
 import glob
 import os
 
-# json_file = open("bio_data.json", "r")
-# json_object = json.load(json_file)
-# json_file.close()
+json_file = open("bio_data.json", "r")
+json_object = json.load(json_file)
+json_file.close()
 
 
 base_path = Path(__file__).parent
@@ -16,13 +16,13 @@ for filename in glob.glob(os.path.join(file_path, '*.csv')):
 		# skip headers
 		next(csv_file)                  
 		csv_reader = csv.reader(csv_file, delimiter=',')
-		for idx,frame in enumerate(csv_reader):
-			
-			
+		for frame in csv_reader:
+			i = 1+1
+
 	csv_file.close()
 
-# json_file = open("bio_data.json", "w")
-# json.dump(json_object, json_file)
-# json_file.close()
+json_file = open("bio_data.json", "w")
+json.dump(json_object, json_file)
+json_file.close()
 
 
