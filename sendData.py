@@ -14,6 +14,11 @@ def normalize_data():
 	avg_total += 0
 	if avg_idx == 10:
 		value = avg_total / avg_idx
+		normalized_value = (value - normal_object['']['min']) / (normal_object['']['max'] - normal_object['']['min'])
+		msg = osc_message_builder.OscMessageBuilder(address="/")
+		msg.add_arg(normalized_value)
+		msg = msg.build()
+		client.send(msg)
 		avg_idx = 0
 
 
