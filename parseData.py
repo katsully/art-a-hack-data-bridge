@@ -4,9 +4,8 @@ import json
 import glob
 import os
 
-json_file = open("bio_data.json", "r")
-json_object = json.load(json_file)
-json_file.close()
+with open("bio_data.json", "r") as json_file:
+	json_object = json.load(json_file)
 
 first_file = False
 
@@ -20,6 +19,8 @@ for filename in glob.glob(os.path.join(file_path, '*.csv')):
 			# remove newline from last element
 			headers[-1] = headers[-1].strip()
 			short_headers = [x.split("/EmotiBit/0/", 1)[1] if "/EmotiBit/0/" in x else x[1:] for x in headers]
+			for header in short_headers:
+				json_object[header] = []
 			first_file = True
 		else: # skip headers
 			next(csv_file)                  
@@ -29,8 +30,7 @@ for filename in glob.glob(os.path.join(file_path, '*.csv')):
 
 	csv_file.close()
 
-json_file = open("bio_data.json", "w")
-json.dump(json_object, json_file)
-json_file.close()
+with open("bio_data.json", "w") as json_file:
+	json.dump(json_object, json_file)
 
 
