@@ -8,6 +8,9 @@ with open("bio_data.json", "r") as json_file:
 	json_object = json.load(json_file)
 json_file.close()
 
+# clear out any pre-exisiting data
+json_object = {}
+
 first_file = False
 
 
@@ -30,7 +33,7 @@ for filename in glob.glob(os.path.join(file_path, '*.csv')):
 		for frame in csv_reader:
 			# iterate through every value (ie bio data type) in frame
 			for idx,value in enumerate(frame):
-				if idx == 0:
+				if idx == 0 or value == ' ':
 					continue
 				# get dictionary containing all key value pairs for this biometeric data
 				data_col = json_object[short_headers[idx-1]]
@@ -44,6 +47,6 @@ for filename in glob.glob(os.path.join(file_path, '*.csv')):
 	csv_file.close()
 
 with open("bio_data.json", "w") as json_file:
-	json.dump(json_object, json_file)
+	json.dump(json_object, json_file, sort_keys=True)
 json_file.close()
 
