@@ -6,6 +6,7 @@ import os
 
 with open("bio_data.json", "r") as json_file:
 	json_object = json.load(json_file)
+json_file.close()
 
 first_file = False
 
@@ -18,19 +19,31 @@ for filename in glob.glob(os.path.join(file_path, '*.csv')):
 			headers = next(csv_file).split(",")
 			# remove newline from last element
 			headers[-1] = headers[-1].strip()
-			short_headers = [x.split("/EmotiBit/0/", 1)[1] if "/EmotiBit/0/" in x else x[1:] for x in headers]
+			short_headers = [x.split("/EmotiBit/0/", 1)[1] for x in headers if "/EmotiBit/0/" in x]
 			for header in short_headers:
-				json_object[header] = []
+				json_object[header] = {}
 			first_file = True
 		else: # skip headers
 			next(csv_file)                  
 		csv_reader = csv.reader(csv_file, delimiter=',')
+		# iterate through every frame in the file
 		for frame in csv_reader:
-			i = 1+1
+			# iterate through every value (ie bio data type) in frame
+			for idx,value in enumerate(frame):
+				if idx == 0:
+					continue
+				# get dictionary containing all key value pairs for this biometeric data
+				data_col = json_object[short_headers[idx-1]]
+				# if the value exists, increment, else add it
+				if value in data_col:
+					data_col[value] += 1
+				else:
+					data_col[value] = 1
+
 
 	csv_file.close()
 
 with open("bio_data.json", "w") as json_file:
 	json.dump(json_object, json_file)
-
+json_file.close()
 
