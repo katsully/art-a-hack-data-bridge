@@ -18,6 +18,8 @@ for key in json_object:
 	# get weighted/averaged min and max
 	low_five = list(json_object[key].items())[:5]
 	high_five = list(json_object[key].items())[-5:]
+	print(key)
+	print(high_five)
 	sum_of_five = 0
 	total = 0
 	for k,v in low_five:

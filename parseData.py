@@ -39,10 +39,11 @@ for filename in glob.glob(os.path.join(file_path, '*.csv')):
 				# get dictionary containing all key value pairs for this biometeric data
 				data_col = json_object[short_headers[idx-1]]
 				# if the value exists, increment, else add it
-				if value in data_col:
-					data_col[value] += 1
+				float_value = float(value)
+				if float_value in data_col:
+					data_col[float_value] += 1
 				else:
-					data_col[value] = 1
+					data_col[float_value] = 1
 
 
 	csv_file.close()
