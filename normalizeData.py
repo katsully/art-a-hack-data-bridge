@@ -39,7 +39,7 @@ for key in json_object:
 		for i in range(json_object[key][k]):
 			all_values.append(float(k))
 	df = DataFrame (all_values, columns=['nums_with_frequencies'])
-	df_quantiles = df.nums_with_frequencies.quantile([0.25,0.5,0.75])
+	df_quantiles = df.nums_with_frequencies.quantile([0.15,0.5,0.85])
 	# print(df_quantiles)
 	normal_object[key]["quantile"] = df_quantiles.values.tolist()
 
