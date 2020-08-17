@@ -15,7 +15,11 @@ def normalize_data(*params):
 		for val_list in master_list:
 			if len(master_list[val_list]) > 0:
 				value = sum(master_list[val_list]) / len(master_list[val_list])
-				normalized_value = (value - normal_object[val_list]['min']) / (normal_object[val_list]['max'] - normal_object[val_list]['min'])
+				print(value)
+				# minmax scalar
+				#normalized_value = (value - normal_object[val_list]['min']) / (normal_object[val_list]['max'] - normal_object[val_list]['min'])
+				# robust scalar (ish) - val - 15th percentile / 85th percentile - 15th percentile
+				normalized_value = (value - normal_object[val_list]['quantile'][0]) / (normal_object[val_list]['quantile'][2] - normal_object[val_list]['quantile'][0])
 				osc_address = '/' + val_list
 				msg = osc_message_builder.OscMessageBuilder(address=osc_address)
 				msg.add_arg(normalized_value)
